@@ -38,6 +38,8 @@ jobs:
           perl -0pi -e 's/CADCraft/ScoutDraft/g; s/<html lang="en">/<html lang="fr">/g' apps/cadcraft-web/index.html apps/cadcraft-web/src/main.rs
           perl -0pi -e 's/let mut app = CadApp::new\(session, services\(\)\);/let mut app = CadApp::new(session, services());\n                        app.ui.interface_language = cadcraft_ui_egui::i18n::Preference::French;/g' apps/cadcraft-web/src/main.rs
           grep -q 'Preference::French' apps/cadcraft-web/src/main.rs
+          grep -q scouthub-client apps/cadcraft-web/index.html || sed -i 's#</body>#  <script src="/ScoutHub/scouthub-client.js" data-app="ScoutDraft" data-open="event"></script>
+</body>#' apps/cadcraft-web/index.html
           git add -A
           git diff --cached --quiet && exit 0
           git commit -m "Sync CadCraft upstream updates"
